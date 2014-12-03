@@ -6,4 +6,6 @@ api = urllib2.urlopen(url)
 data = json.load(api)
 
 for item in data:
-    print item['sector'], item['company']['purchases']
+    if item['sector'] == 'technology':
+        print item['sector'], item['company']['name'], item['company']['purchases'], item['company']['interest_payable'], item['company']['sales'], item['company']['expenses'], item['company']['opening_stock'], item['company']['closing_stock']
+
