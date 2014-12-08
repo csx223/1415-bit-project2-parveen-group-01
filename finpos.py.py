@@ -4,6 +4,7 @@ import json
 urlIncomeStatement = 'http://dev.c0l.in:8888'
 apiIncomeStatement = urllib2.urlopen(urlIncomeStatement)
 dataIncomeStatement = json.load(apiIncomeStatement)
+
 urlFinancialPosition = 'http://dev.c0l.in:9999'
 apiFinancialPosition = urllib2.urlopen(urlFinancialPosition)
 dataFinancialPositiont = json.load(apiFinancialPosition)
