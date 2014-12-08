@@ -2,8 +2,6 @@ import urllib2
 import json
 import csv
 
-c = csv.writer(open("analysis output.csv", "wb"))
-
 urlIncomeStatement = 'http://dev.c0l.in:8888'
 apiIncomeStatement = urllib2.urlopen(urlIncomeStatement)
 dataIncomeStatement = json.load(apiIncomeStatement)
@@ -23,20 +21,21 @@ for item in dataIncomeStatement:
     profit_for_the_period = int(net_profit - item['company']['interest_payable'] + item['company']['interest_receivable'])
 
     if item['sector'] == 'technology':
-        c.writerow([name,
-                    str(item['company']['purchases']),
-                    str(item['company']['interest_payable']),
-                    str(item['company']['sales']),
-                    str(item['company']['expenses']),
-                    str(item['company']['opening_stock']),
-                    str(item['company']['closing_stock']),
-                    str(item['company']['interest_receivable']),
-                    str(cost_of_sales),
-                    str(gross_profit),
-                    str(net_profit),
-                    str(profit_for_the_period)]),
-        
-    
+        print "------------------------------------------"
+        print str(item['sector']), name + ":"
+        print name + "'s interest purchases - " + str(item['company']['purchases'])
+        print name + "'s interest payable - " + str(item['company']['interest_payable'])
+        print name + "'s interest sales - " + str(item['company']['sales'])
+        print name + "'s interest expenses - " + str(item['company']['expenses'])
+        print name + "'s interest opening stock - " + str(item['company']['opening_stock'])
+        print name + "'s interest closing stock - " + str(item['company']['closing_stock'])
+        print name + "'s interest interest recivables - " + str(item['company']['interest_receivable'])                  
+        print name + "'s interest cost of sales - " + str(cost_of_sales)
+        print name + "'s interest gross profit - " + str(gross_profit)
+        print name + "'s interest net profit - " + str(net_profit)
+        print name + "'s interest profit for the period of time - " + str(profit_for_the_period)
+        print "-----------------------------------------"
+
 print "Done printing Income Statements for technology companies."
 print "Printing Financial Positions for technology companies: "
 
@@ -46,12 +45,13 @@ for item in dataFinancialPosition:
     totalAssets = int(item['company']['current_liabilities'] + item['company']['non_current_liabilities'] + item['company']['equity'])
 
     if item['sector'] == 'technology':
-        c.writerow([name,
-                    str(item['company']['current_liabilities']),
-                    str(item['company']['non_current_liabilities']),
-                    str(item['company']['equity']),
-                    str(item['company']['non_current_assets']),
-                    str(totalEquityAndLiabilities),
-                    str(totalAssets)])
+        print "-----------------------------------------"
+        print item['company']['name'] + "'s current liabilities - " + str(item['company']['current_liabilities'])
+        print item['company']['name'] + "'s non-current liabilities - " + str(item['company']['non_current_liabilities'])
+        print item['company']['name'] + "'s equity - " + str(item['company']['equity'])
+        print item['company']['name'] + "'s non-current assets - " + str(item['company']['non_current_assets'])
+        print item['company']['name'] + "'s total Equity And Liabiliites - " + str(totalEquityAndLiabilities)
+        print item['company']['name'] + "'s total Assets - " + str(totalAssets)
+        print "-----------------------------------------"
 
 print "Done printing Financial Positions for technology companies."
