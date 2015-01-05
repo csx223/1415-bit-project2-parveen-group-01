@@ -20,6 +20,13 @@ income_response = json.loads(income_statement_request)
 def financial_position_fn():
     count = 0
     user_input2 = raw_input('Which sector would you like to iterate through in Financial Position?: ')
+    IncomeStatementCSV.writerow([
+                'Name',
+                'Non current assets',
+                'Current assets',
+                'Equity',
+                'Non current liabilities',
+                'Current liabilities'])
     for item in financial_response['rows']:
         fp_url = "http://dev.c0l.in:5984/financial_positions/" + item['id']
         fp_request = urllib2.urlopen(fp_url).read()
@@ -41,12 +48,21 @@ def financial_position_fn():
 def income_statement_fn():
     count = 0
     user_input3 = raw_input("Which sector would you like to iterate through in Income Statement?: ")
+    IncomeStatementCSV.writerow([
+                'Name',
+                'Sales',
+                'Opening stock',
+                'Pusrchases',
+                'Closing stock',
+                'Expenses',
+                'Interest payble',
+                'Interest recivable'])
     for item in income_response['rows']:
         is_url = "http://dev.c0l.in:5984/income_statements/" + item['id']
         is_request = urllib2.urlopen(is_url).read()
         is_response = json.loads(is_request)
         if is_response.get('sector', None) == user_input3:
-            count += 1
+            count += 1                            
             IncomeStatementCSV.writerow([
              is_response['company']['name'],
              is_response['company']['sales'],
@@ -57,7 +73,7 @@ def income_statement_fn():
              is_response['company']['interest_payable'],
              is_response['company']['interest_receivable']])
             print ("Printing DATA")
-    print ("Done. Your data is stored in Financial Position.csv file. It contains '%s' entries.") % (count)
+    print ("Done. Your data is stored in Income Statement.csv file. It contains '%s' entries.") % (count)
 
 
 
